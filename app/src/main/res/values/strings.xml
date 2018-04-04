@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">English Dictionary Robot</string>
+    <string name="enter_a_term">Enter a term</string>
+    <string name="find_definition">Find Definition</string>
+    <string name="the_term_s_definition_will_appear_here_when_found">The term\'s definition should appear here when found.</string>
+    <string name="loading_dictionary_into_robot">Loading the dictionary into the Robot. This should only take a few seconds.</string>
+    <string name="working">Working…</string>
+    <string name="moved_to_term_on_page" formatted="true">Moved to term %d on page %d</string>
+    <string name="moving_to_term_on_page" formatted="true">Moving to term %d on page %d</string>
+    <string name="current_term_index">Current Term Index:</string>
+    <string name="current_page_index">Current Page Index:</string>
+    <string name="pages_examined">Pages Examined:</string>
+    <string name="zero">0</string>
+    <string name="terms_examined">Terms Examined:</string>
+    <string name="negative_one">-1</string>
+    <string name="cancel">Cancel</string>
+    <string name="current_term">Current Term:</string>
+    <string name="n_a">N/A</string>
+    <string name= "word_not_found">Word Not Found</string>
+    <string name= "term_usage">usage</string>
+    <string name= "start_of_definition_for_usage">n.</string>
+    <string name= "error">Error</string>
+    <string name= "alert_title">Alert</string>
+    <string name= "alert_description">Word Not Found. Please Try Again</string>
+    <string name= "alert_ok">OK</string>
+    <string name= "error_on_edit_text">Wrong Word</string>
+    <string name= "bundle_word_to_find">WordToFind</string>
+</resources>
