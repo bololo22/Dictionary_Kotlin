@@ -37,31 +37,31 @@ class MainActivityPresenterBSearchImpl(private val robot: Robot, private val mai
         return findDefinitionBinarySearchInPage(up, down, word)
     }
 
-    fun findDefinitionBinarySearchInDictionary(left: Int, right: Int, word: String) {
+    private fun findDefinitionBinarySearchInDictionary(left: Int, right: Int, word: String) {
         if (right >= left) {
             val mid = left + (right - left) / 2
 
             robot.jumpToSpecificPage(mid)
             robot.jumpToFirstTerm()
 
-            if (word.compareTo(robot.currentTerm!!.toLowerCase()) >= 0) {
+            if (word >= robot.currentTerm!!.toLowerCase()) {
                 robot.jumpToLastTerm()
-                if (word.compareTo(robot.currentTerm!!.toLowerCase()) <= 0) {
+                if (word <= robot.currentTerm!!.toLowerCase()) {
                     return
                 }
             }
 
-            if (word.compareTo(robot.currentTerm!!.toLowerCase()) < 0) {
+            if (word < robot.currentTerm!!.toLowerCase()) {
                 findDefinitionBinarySearchInDictionary(left, mid - 1, word)
             }
 
-            if (word.compareTo(robot.currentTerm!!.toLowerCase()) > 0) {
+            if (word > robot.currentTerm!!.toLowerCase()) {
                 findDefinitionBinarySearchInDictionary(mid + 1, right, word)
             }
         }
     }
 
-    fun findDefinitionBinarySearchInPage(up: Int, down: Int, word: String): String? {
+    private fun findDefinitionBinarySearchInPage(up: Int, down: Int, word: String): String? {
         if (down >= up) {
             val mid = up + (down - up) / 2
 
@@ -72,18 +72,18 @@ class MainActivityPresenterBSearchImpl(private val robot: Robot, private val mai
                 if (robot.hasMoreTerms) {
                     robot.moveToNextTerm()
                 }
-                if (robot.currentTerm!!.equals(context.resources.getString(R.string.term_usage), ignoreCase = true)) {
-                    return definition + "\n " + robot.currentTerm + " " + robot.currentTermDefinition
+                return if (robot.currentTerm!!.equals(context.resources.getString(R.string.term_usage), ignoreCase = true)) {
+                    definition + "\n " + robot.currentTerm + " " + robot.currentTermDefinition
                 } else {
-                    return definition
+                    definition
                 }
             }
 
-            if (word.compareTo(robot.currentTerm!!.toLowerCase()) < 0) {
+            if (word < robot.currentTerm!!.toLowerCase()) {
                 return findDefinitionBinarySearchInPage(up, mid - 1, word)
             }
 
-            if (word.compareTo(robot.currentTerm!!.toLowerCase()) > 0) {
+            if (word > robot.currentTerm!!.toLowerCase()) {
                 return findDefinitionBinarySearchInPage(mid + 1, down, word)
             }
         }

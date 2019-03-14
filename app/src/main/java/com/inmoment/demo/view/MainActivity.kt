@@ -15,7 +15,7 @@ import com.inmoment.demo.Robot
 import com.inmoment.demo.RobotImpl
 import com.inmoment.demo.RobotUserInterface
 import com.inmoment.demo.presenter.MainActivityPresenterBSearchImpl
-import com.inmoment.demo.presenter.MainActiviyPresenterImpl
+import com.inmoment.demo.presenter.MainActivityPresenterImpl
 
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
@@ -28,13 +28,11 @@ import org.jetbrains.anko.toast
  * */
 class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, LoaderManager.LoaderCallbacks<String>{
 
-    private val SEARCH_ASYNC_TASK_LOADER = 22
-
     private var isCancelled: Boolean = false
 
     private lateinit var robot: Robot
 
-    private lateinit var mainActivityPresenter : MainActiviyPresenterImpl
+    private lateinit var mainActivityPresenter : MainActivityPresenterImpl
     private lateinit var mainActivityBSearchPresenter : MainActivityPresenterBSearchImpl
 
 
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
 
         this.robot = RobotImpl(this, this)
 
-        this.mainActivityPresenter = MainActiviyPresenterImpl(this.robot, this, this)
+        this.mainActivityPresenter = MainActivityPresenterImpl(this.robot, this, this)
         this.mainActivityBSearchPresenter = MainActivityPresenterBSearchImpl(this.robot, this, this)
 
         this.setBusy(false)
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
             }
         };
 
-        getSupportLoaderManager().initLoader(SEARCH_ASYNC_TASK_LOADER, null, this);
+        getSupportLoaderManager().initLoader(Companion.SEARCH_ASYNC_TASK_LOADER, null, this);
 
     }
     //</editor-fold>
@@ -106,7 +104,7 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
      *
      * @author kjensen
      * */
-    fun findDefinition(sender: View) {
+    private fun findDefinition(sender: View) {
         resetMetrics()
         hideKeyBoard()
         setBusy(false)
@@ -122,7 +120,7 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
      *
      * @author kjensen
      * */
-    fun cancel(sender: View) {
+    fun cancel() {
         isCancelled = true
         resetMetrics()
         setBusy(false)
@@ -199,7 +197,7 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
      *
      * @author JuanFernandez
      * */
-    fun showKeyBoard(view : View){
+    fun showKeyBoard() {
         search_term_edit_text.requestFocus()
         val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(search_term_edit_text, InputMethodManager.SHOW_IMPLICIT)
@@ -224,7 +222,6 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
         }.show()
         search_term_edit_text.error = getString(R.string.error)
     }
-    //</editor-fold>
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<String> {
         return object : AsyncTaskLoader<String>(this) {
@@ -251,7 +248,7 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
     override fun onLoadFinished(loader: Loader<String>, data: String?) {
         mainActivityBSearchPresenter.notifyUIProgress(false)
         if (!data.isNullOrEmpty() && data?.isNotBlank()!! ){
-            if(data.equals("Error")){
+            if(data == "Error"){
                 mainActivityBSearchPresenter.showAlertError()
             }else{
                 mainActivityBSearchPresenter.showWordFound("", data);
@@ -262,6 +259,10 @@ class MainActivity : AppCompatActivity(), RobotUserInterface, MainActivityView, 
     }
 
     override fun onLoaderReset(loader: Loader<String>) {
+    }
+
+    companion object {
+        private const val SEARCH_ASYNC_TASK_LOADER = 22
     }
 
 }

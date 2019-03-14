@@ -11,13 +11,13 @@ import com.inmoment.demo.Robot;
  * Created by manolofernandez on 3/27/18.
  */
 
-public class MainActiviyPresenterImpl implements MainActivityPresenter {
-    private static final String TAG = MainActiviyPresenterImpl.class.getName();
+public class MainActivityPresenterImpl implements MainActivityPresenter {
+    private static final String TAG = MainActivityPresenterImpl.class.getName();
     private Robot robot;
     private MainActivityView mainActivityView;
     private Context context;
 
-    public MainActiviyPresenterImpl(Robot robot, MainActivityView mainActivityView, Context context){
+    public MainActivityPresenterImpl(Robot robot, MainActivityView mainActivityView, Context context){
         this.robot = robot;
         this.mainActivityView = mainActivityView;
         this.context = context;
